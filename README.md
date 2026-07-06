@@ -22,19 +22,23 @@ Starting from Strassen's seven-multiplication algorithm, I explored permutations
 
 ---
 
-## Results
+## Key Results
 
-The symbolic search examined all
+Using symbolic computation, every permutation of the four output
+entries was examined.
 
-$$
-4! = 24
-$$
+For both
 
-possible permutations of the four entries of the output matrix.
+- Strassen's algorithm, and
+- the Strassen–Winograd variant,
 
-Only **4** permutations correspond directly to valid matrix products under the reconstruction method explored in this project.
+only four of the twenty-four possible output permutations correspond
+directly to valid matrix products under the reconstruction method used
+in this project.
 
-These formulations appear to be equivalent to known symmetries of Strassen's algorithm rather than fundamentally new matrix multiplication algorithms.
+This suggests that the valid permutations arise from the structure of
+the underlying bilinear matrix multiplication map rather than from the
+particular 7-multiplication formulation.
 
 ---
 
@@ -142,6 +146,129 @@ e_1+e_2 & e_5+e_4-e_2+e_6
 \end{bmatrix}
 $$
 
+---
+
+# Strassen–Winograd Variations
+
+The same symbolic permutation search was repeated using the Strassen–Winograd
+algorithm. As with the original Strassen formulation, only four output
+permutations correspond directly to valid matrix products.
+
+## Original Strassen–Winograd
+
+Intermediate products
+
+```text
+w1 = (a-c)(h-f)
+w2 = ae
+w3 = bg
+w4 = (c+d-a)(h-f+e)
+w5 = (c+d)(f-e)
+w6 = (a+b-c-d)h
+w7 = d(e-f-g+h)
+```
+
+Reconstruction
+
+$$
+C=
+\begin{bmatrix}
+w_2+w_3 &
+w_2+w_4+w_5+w_6 \\
+w_1+w_2+w_4-w_7 &
+w_1+w_2+w_4+w_5
+\end{bmatrix}
+$$
+
+---
+
+## Winograd Variation 1
+
+Intermediate products
+
+```text
+v1 = (c-a)(h-f)
+v2 = ce
+v3 = dg
+v4 = (a+b-c)(h-f+e)
+v5 = (a+b)(f-e)
+v6 = -(a+b-c-d)h
+v7 = b(e-f-g+h)
+```
+
+Reconstruction
+
+$$
+C=
+\begin{bmatrix}
+v_1+v_2+v_4-v_7 &
+v_1+v_2+v_4+v_5 \\
+v_2+v_3 &
+v_2+v_4+v_5+v_6
+\end{bmatrix}
+$$
+
+---
+
+## Winograd Variation 2
+
+Intermediate products
+
+```text
+v1 = (a-c)(g-e)
+v2 = af
+v3 = bh
+v4 = (a-c-d)(e-f-g)
+v5 = (c+d)(e-f)
+v6 = (a+b-c-d)g
+v7 = -d(e-f-g+h)
+```
+
+Reconstruction
+
+$$
+C=
+\begin{bmatrix}
+v_2+v_4+v_5+v_6 &
+v_2+v_3 \\
+v_1+v_2+v_4+v_5 &
+v_1+v_2+v_4-v_7
+\end{bmatrix}
+$$
+
+---
+
+## Winograd Variation 3
+
+Intermediate products
+
+```text
+v1 = (a-c)(f-h)
+v2 = ce
+v3 = dh
+v4 = (a+b-c)(e-f+h)
+v5 = -(a+b)(e-f)
+v6 = -(a+b-c-d)h
+v7 = b(e-f-g+h)
+```
+
+Reconstruction
+
+$$
+C=
+\begin{bmatrix}
+v_2+v_3 &
+v_1+v_2+v_4+v_5 \\
+v_1+v_2+v_4-v_7 &
+v_2+v_4+v_5+v_6
+\end{bmatrix}
+$$
+
+---
+## Algorithms Implemented
+
+- Strassen's 7-multiplication algorithm
+- Strassen–Winograd's 7-multiplication algorithm
 ---
 
 ## Future Work
