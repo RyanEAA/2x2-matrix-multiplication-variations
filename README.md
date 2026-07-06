@@ -3,7 +3,7 @@
 ```md
 # Matrix Multiplication Variations
 
-This repository explores symbolic reformulations of fast \(2\times2\) matrix multiplication algorithms.
+This repository explores symbolic reformulations of fast \(2x2\) matrix multiplication algorithms.
 
 The current work investigates equivalent formulations of Strassen's and
 Strassen–Winograd's 7-multiplication algorithms through symbolic computation.
@@ -12,12 +12,10 @@ Strassen–Winograd's 7-multiplication algorithms through symbolic computation.
 
 ## Motivation
 
-The project began as an attempt to determine whether two \(2\times2\) matrices
+The project began as an attempt to determine whether two \(2x2\) matrices
 could be multiplied using only six scalar multiplications.
 
-Although no 6-multiplication formulation was found, the investigation led to a
-symbolic framework for generating and verifying equivalent formulations of
-existing bilinear algorithms.
+Although no 6-multiplication formulation was found, the investigation led to a symbolic framework for generating and verifying equivalent formulations of \(2x2\) matrix multiplication algorithms.
 
 ---
 
