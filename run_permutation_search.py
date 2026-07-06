@@ -1,17 +1,31 @@
-from algorithms import strassen
-from algorithms import winograd
-from experiments.permutation_search import run_permutation_search
+from algorithms import strassen, winograd
+from output import write_results_markdown
 
+from experiments.permutation_search import run_permutation_search
 
 def main():
     strassen_results = run_permutation_search(
         "Strassen",
         strassen,
+        verbose=False,
+    )
+
+    write_results_markdown(
+        "Strassen",
+        strassen_results,
+        "results/strassen-summary.md",
     )
 
     winograd_results = run_permutation_search(
         "Strassen-Winograd",
         winograd,
+        verbose=False,
+    )
+
+    write_results_markdown(
+        "Strassen-Winograd",
+        winograd_results,
+        "results/winograd-summary.md",
     )
 
 
