@@ -8,8 +8,7 @@ This repository explores symbolic reformulations of fast \(2x2\) matrix multipli
 The current work investigates equivalent formulations of Strassen's and
 Strassen–Winograd's 7-multiplication algorithms through symbolic computation.
 
-When restricting to transformed products of the form A′B′, exactly four of the twenty-four output permutations are valid. Extending the search to also consider products of the form B'A'
-identifies four additional valid permutations, for a total of eight valid permutation/interpretation pairs.
+When restricting to transformed products of the form A′B′, exactly four of the twenty-four output permutations are valid. Extending the search to also consider products of the form B'A' identifies four additional valid permutations, for a total of eight valid permutation/interpretation pairs.
 
 ---
 
