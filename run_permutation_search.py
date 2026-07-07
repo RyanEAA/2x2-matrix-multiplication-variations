@@ -7,7 +7,7 @@ def main():
     strassen_results = run_permutation_search(
         "Strassen",
         strassen,
-        verbose=False,
+        verbose=True,
     )
 
     write_results_markdown(

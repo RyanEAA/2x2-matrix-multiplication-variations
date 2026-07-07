@@ -1,0 +1,1736 @@
+
+################################################################################
+Algorithm: Strassen
+################################################################################
+================================================================================
+Permutation 1
+C' =
+[ a*e + b*g, a*f + b*h ]
+[ c*e + d*g, c*f + d*h ]
+
+Mode: AB
+A' =
+[[a, b], [c, d]]
+B' =
+[[e, f], [g, h]]
+
+A'B' =
+[ a*e + b*g, a*f + b*h ]
+[ c*e + d*g, c*f + d*h ]
+
+p terms:
+p1 = a*(f - h)
+p2 = h*(a + b)
+p3 = e*(c + d)
+p4 = -d*(e - g)
+p5 = (a + d)*(e + h)
+p6 = (b - d)*(g + h)
+p7 = (a - c)*(e + f)
+
+A'B' equals C'? True
+Strassen reconstruction equals A'B'? True
+================================================================================
+Permutation 1
+C' =
+[ a*e + b*g, a*f + b*h ]
+[ c*e + d*g, c*f + d*h ]
+
+Mode: BA
+B' =
+[[e, g], [f, h]]
+A' =
+[[a, c], [b, d]]
+
+B'A' =
+[ a*e + b*g, c*e + d*g ]
+[ a*f + b*h, c*f + d*h ]
+
+p terms:
+p1 = e*(c - d)
+p2 = d*(e + g)
+p3 = a*(f + h)
+p4 = -h*(a - b)
+p5 = (a + d)*(e + h)
+p6 = (b + d)*(g - h)
+p7 = (a + c)*(e - f)
+
+B'A' equals C'? False
+Strassen reconstruction equals B'A'? True
+================================================================================
+Permutation 2
+C' =
+[ a*e + b*g, a*f + b*h ]
+[ c*f + d*h, c*e + d*g ]
+
+Mode: AB
+A' =
+[[a, b], [c, d]]
+B' =
+[[e, e], [g, g]]
+
+A'B' =
+[ a*e + b*g, a*e + b*g ]
+[ c*e + d*g, c*e + d*g ]
+
+p terms:
+p1 = a*(e - g)
+p2 = g*(a + b)
+p3 = e*(c + d)
+p4 = -d*(e - g)
+p5 = (a + d)*(e + g)
+p6 = 2*g*(b - d)
+p7 = 2*e*(a - c)
+
+A'B' equals C'? False
+Strassen reconstruction equals A'B'? True
+================================================================================
+Permutation 2
+C' =
+[ a*e + b*g, a*f + b*h ]
+[ c*f + d*h, c*e + d*g ]
+
+Mode: BA
+B' =
+[[e, g], [e, g]]
+A' =
+[[a, c], [b, d]]
+
+B'A' =
+[ a*e + b*g, c*e + d*g ]
+[ a*e + b*g, c*e + d*g ]
+
+p terms:
+p1 = e*(c - d)
+p2 = d*(e + g)
+p3 = a*(e + g)
+p4 = -g*(a - b)
+p5 = (a + d)*(e + g)
+p6 = 0
+p7 = 0
+
+B'A' equals C'? False
+Strassen reconstruction equals B'A'? True
+================================================================================
+Permutation 3
+C' =
+[ a*e + b*g, c*e + d*g ]
+[ a*f + b*h, c*f + d*h ]
+
+Mode: AB
+A' =
+[[a, b], [c, d]]
+B' =
+[[e, f], [g, h]]
+
+A'B' =
+[ a*e + b*g, a*f + b*h ]
+[ c*e + d*g, c*f + d*h ]
+
+p terms:
+p1 = a*(f - h)
+p2 = h*(a + b)
+p3 = e*(c + d)
+p4 = -d*(e - g)
+p5 = (a + d)*(e + h)
+p6 = (b - d)*(g + h)
+p7 = (a - c)*(e + f)
+
+A'B' equals C'? False
+Strassen reconstruction equals A'B'? True
+================================================================================
+Permutation 3
+C' =
+[ a*e + b*g, c*e + d*g ]
+[ a*f + b*h, c*f + d*h ]
+
+Mode: BA
+B' =
+[[e, g], [f, h]]
+A' =
+[[a, c], [b, d]]
+
+B'A' =
+[ a*e + b*g, c*e + d*g ]
+[ a*f + b*h, c*f + d*h ]
+
+p terms:
+p1 = e*(c - d)
+p2 = d*(e + g)
+p3 = a*(f + h)
+p4 = -h*(a - b)
+p5 = (a + d)*(e + h)
+p6 = (b + d)*(g - h)
+p7 = (a + c)*(e - f)
+
+B'A' equals C'? True
+Strassen reconstruction equals B'A'? True
+================================================================================
+Permutation 4
+C' =
+[ a*e + b*g, c*e + d*g ]
+[ c*f + d*h, a*f + b*h ]
+
+Mode: AB
+A' =
+[[a, b], [a, b]]
+B' =
+[[e, f], [g, h]]
+
+A'B' =
+[ a*e + b*g, a*f + b*h ]
+[ a*e + b*g, a*f + b*h ]
+
+p terms:
+p1 = a*(f - h)
+p2 = h*(a + b)
+p3 = e*(a + b)
+p4 = -b*(e - g)
+p5 = (a + b)*(e + h)
+p6 = 0
+p7 = 0
+
+A'B' equals C'? False
+Strassen reconstruction equals A'B'? True
+================================================================================
+Permutation 4
+C' =
+[ a*e + b*g, c*e + d*g ]
+[ c*f + d*h, a*f + b*h ]
+
+Mode: BA
+B' =
+[[e, g], [f, h]]
+A' =
+[[a, a], [b, b]]
+
+B'A' =
+[ a*e + b*g, a*e + b*g ]
+[ a*f + b*h, a*f + b*h ]
+
+p terms:
+p1 = e*(a - b)
+p2 = b*(e + g)
+p3 = a*(f + h)
+p4 = -h*(a - b)
+p5 = (a + b)*(e + h)
+p6 = 2*b*(g - h)
+p7 = 2*a*(e - f)
+
+B'A' equals C'? False
+Strassen reconstruction equals B'A'? True
+================================================================================
+Permutation 5
+C' =
+[ a*e + b*g, c*f + d*h ]
+[ a*f + b*h, c*e + d*g ]
+
+Mode: AB
+A' =
+[[a, b], [c, d]]
+B' =
+[[e, e], [g, g]]
+
+A'B' =
+[ a*e + b*g, a*e + b*g ]
+[ c*e + d*g, c*e + d*g ]
+
+p terms:
+p1 = a*(e - g)
+p2 = g*(a + b)
+p3 = e*(c + d)
+p4 = -d*(e - g)
+p5 = (a + d)*(e + g)
+p6 = 2*g*(b - d)
+p7 = 2*e*(a - c)
+
+A'B' equals C'? False
+Strassen reconstruction equals A'B'? True
+================================================================================
+Permutation 5
+C' =
+[ a*e + b*g, c*f + d*h ]
+[ a*f + b*h, c*e + d*g ]
+
+Mode: BA
+B' =
+[[e, g], [e, g]]
+A' =
+[[a, c], [b, d]]
+
+B'A' =
+[ a*e + b*g, c*e + d*g ]
+[ a*e + b*g, c*e + d*g ]
+
+p terms:
+p1 = e*(c - d)
+p2 = d*(e + g)
+p3 = a*(e + g)
+p4 = -g*(a - b)
+p5 = (a + d)*(e + g)
+p6 = 0
+p7 = 0
+
+B'A' equals C'? False
+Strassen reconstruction equals B'A'? True
+================================================================================
+Permutation 6
+C' =
+[ a*e + b*g, c*f + d*h ]
+[ c*e + d*g, a*f + b*h ]
+
+Mode: AB
+A' =
+[[a, b], [a, b]]
+B' =
+[[e, f], [g, h]]
+
+A'B' =
+[ a*e + b*g, a*f + b*h ]
+[ a*e + b*g, a*f + b*h ]
+
+p terms:
+p1 = a*(f - h)
+p2 = h*(a + b)
+p3 = e*(a + b)
+p4 = -b*(e - g)
+p5 = (a + b)*(e + h)
+p6 = 0
+p7 = 0
+
+A'B' equals C'? False
+Strassen reconstruction equals A'B'? True
+================================================================================
+Permutation 6
+C' =
+[ a*e + b*g, c*f + d*h ]
+[ c*e + d*g, a*f + b*h ]
+
+Mode: BA
+B' =
+[[e, g], [f, h]]
+A' =
+[[a, a], [b, b]]
+
+B'A' =
+[ a*e + b*g, a*e + b*g ]
+[ a*f + b*h, a*f + b*h ]
+
+p terms:
+p1 = e*(a - b)
+p2 = b*(e + g)
+p3 = a*(f + h)
+p4 = -h*(a - b)
+p5 = (a + b)*(e + h)
+p6 = 2*b*(g - h)
+p7 = 2*a*(e - f)
+
+B'A' equals C'? False
+Strassen reconstruction equals B'A'? True
+================================================================================
+Permutation 7
+C' =
+[ a*f + b*h, a*e + b*g ]
+[ c*e + d*g, c*f + d*h ]
+
+Mode: AB
+A' =
+[[a, b], [c, d]]
+B' =
+[[f, f], [h, h]]
+
+A'B' =
+[ a*f + b*h, a*f + b*h ]
+[ c*f + d*h, c*f + d*h ]
+
+p terms:
+p1 = a*(f - h)
+p2 = h*(a + b)
+p3 = f*(c + d)
+p4 = -d*(f - h)
+p5 = (a + d)*(f + h)
+p6 = 2*h*(b - d)
+p7 = 2*f*(a - c)
+
+A'B' equals C'? False
+Strassen reconstruction equals A'B'? True
+================================================================================
+Permutation 7
+C' =
+[ a*f + b*h, a*e + b*g ]
+[ c*e + d*g, c*f + d*h ]
+
+Mode: BA
+B' =
+[[f, h], [f, h]]
+A' =
+[[a, c], [b, d]]
+
+B'A' =
+[ a*f + b*h, c*f + d*h ]
+[ a*f + b*h, c*f + d*h ]
+
+p terms:
+p1 = f*(c - d)
+p2 = d*(f + h)
+p3 = a*(f + h)
+p4 = -h*(a - b)
+p5 = (a + d)*(f + h)
+p6 = 0
+p7 = 0
+
+B'A' equals C'? False
+Strassen reconstruction equals B'A'? True
+================================================================================
+Permutation 8
+C' =
+[ a*f + b*h, a*e + b*g ]
+[ c*f + d*h, c*e + d*g ]
+
+Mode: AB
+A' =
+[[a, b], [c, d]]
+B' =
+[[f, e], [h, g]]
+
+A'B' =
+[ a*f + b*h, a*e + b*g ]
+[ c*f + d*h, c*e + d*g ]
+
+p terms:
+p1 = a*(e - g)
+p2 = g*(a + b)
+p3 = f*(c + d)
+p4 = -d*(f - h)
+p5 = (a + d)*(f + g)
+p6 = (b - d)*(g + h)
+p7 = (a - c)*(e + f)
+
+A'B' equals C'? True
+Strassen reconstruction equals A'B'? True
+================================================================================
+Permutation 8
+C' =
+[ a*f + b*h, a*e + b*g ]
+[ c*f + d*h, c*e + d*g ]
+
+Mode: BA
+B' =
+[[f, h], [e, g]]
+A' =
+[[a, c], [b, d]]
+
+B'A' =
+[ a*f + b*h, c*f + d*h ]
+[ a*e + b*g, c*e + d*g ]
+
+p terms:
+p1 = f*(c - d)
+p2 = d*(f + h)
+p3 = a*(e + g)
+p4 = -g*(a - b)
+p5 = (a + d)*(f + g)
+p6 = -(b + d)*(g - h)
+p7 = -(a + c)*(e - f)
+
+B'A' equals C'? False
+Strassen reconstruction equals B'A'? True
+================================================================================
+Permutation 9
+C' =
+[ a*f + b*h, c*e + d*g ]
+[ a*e + b*g, c*f + d*h ]
+
+Mode: AB
+A' =
+[[a, b], [c, d]]
+B' =
+[[f, f], [h, h]]
+
+A'B' =
+[ a*f + b*h, a*f + b*h ]
+[ c*f + d*h, c*f + d*h ]
+
+p terms:
+p1 = a*(f - h)
+p2 = h*(a + b)
+p3 = f*(c + d)
+p4 = -d*(f - h)
+p5 = (a + d)*(f + h)
+p6 = 2*h*(b - d)
+p7 = 2*f*(a - c)
+
+A'B' equals C'? False
+Strassen reconstruction equals A'B'? True
+================================================================================
+Permutation 9
+C' =
+[ a*f + b*h, c*e + d*g ]
+[ a*e + b*g, c*f + d*h ]
+
+Mode: BA
+B' =
+[[f, h], [f, h]]
+A' =
+[[a, c], [b, d]]
+
+B'A' =
+[ a*f + b*h, c*f + d*h ]
+[ a*f + b*h, c*f + d*h ]
+
+p terms:
+p1 = f*(c - d)
+p2 = d*(f + h)
+p3 = a*(f + h)
+p4 = -h*(a - b)
+p5 = (a + d)*(f + h)
+p6 = 0
+p7 = 0
+
+B'A' equals C'? False
+Strassen reconstruction equals B'A'? True
+================================================================================
+Permutation 10
+C' =
+[ a*f + b*h, c*e + d*g ]
+[ c*f + d*h, a*e + b*g ]
+
+Mode: AB
+A' =
+[[a, b], [a, b]]
+B' =
+[[f, e], [h, g]]
+
+A'B' =
+[ a*f + b*h, a*e + b*g ]
+[ a*f + b*h, a*e + b*g ]
+
+p terms:
+p1 = a*(e - g)
+p2 = g*(a + b)
+p3 = f*(a + b)
+p4 = -b*(f - h)
+p5 = (a + b)*(f + g)
+p6 = 0
+p7 = 0
+
+A'B' equals C'? False
+Strassen reconstruction equals A'B'? True
+================================================================================
+Permutation 10
+C' =
+[ a*f + b*h, c*e + d*g ]
+[ c*f + d*h, a*e + b*g ]
+
+Mode: BA
+B' =
+[[f, h], [e, g]]
+A' =
+[[a, a], [b, b]]
+
+B'A' =
+[ a*f + b*h, a*f + b*h ]
+[ a*e + b*g, a*e + b*g ]
+
+p terms:
+p1 = f*(a - b)
+p2 = b*(f + h)
+p3 = a*(e + g)
+p4 = -g*(a - b)
+p5 = (a + b)*(f + g)
+p6 = -2*b*(g - h)
+p7 = -2*a*(e - f)
+
+B'A' equals C'? False
+Strassen reconstruction equals B'A'? True
+================================================================================
+Permutation 11
+C' =
+[ a*f + b*h, c*f + d*h ]
+[ a*e + b*g, c*e + d*g ]
+
+Mode: AB
+A' =
+[[a, b], [c, d]]
+B' =
+[[f, e], [h, g]]
+
+A'B' =
+[ a*f + b*h, a*e + b*g ]
+[ c*f + d*h, c*e + d*g ]
+
+p terms:
+p1 = a*(e - g)
+p2 = g*(a + b)
+p3 = f*(c + d)
+p4 = -d*(f - h)
+p5 = (a + d)*(f + g)
+p6 = (b - d)*(g + h)
+p7 = (a - c)*(e + f)
+
+A'B' equals C'? False
+Strassen reconstruction equals A'B'? True
+================================================================================
+Permutation 11
+C' =
+[ a*f + b*h, c*f + d*h ]
+[ a*e + b*g, c*e + d*g ]
+
+Mode: BA
+B' =
+[[f, h], [e, g]]
+A' =
+[[a, c], [b, d]]
+
+B'A' =
+[ a*f + b*h, c*f + d*h ]
+[ a*e + b*g, c*e + d*g ]
+
+p terms:
+p1 = f*(c - d)
+p2 = d*(f + h)
+p3 = a*(e + g)
+p4 = -g*(a - b)
+p5 = (a + d)*(f + g)
+p6 = -(b + d)*(g - h)
+p7 = -(a + c)*(e - f)
+
+B'A' equals C'? True
+Strassen reconstruction equals B'A'? True
+================================================================================
+Permutation 12
+C' =
+[ a*f + b*h, c*f + d*h ]
+[ c*e + d*g, a*e + b*g ]
+
+Mode: AB
+A' =
+[[a, b], [a, b]]
+B' =
+[[f, e], [h, g]]
+
+A'B' =
+[ a*f + b*h, a*e + b*g ]
+[ a*f + b*h, a*e + b*g ]
+
+p terms:
+p1 = a*(e - g)
+p2 = g*(a + b)
+p3 = f*(a + b)
+p4 = -b*(f - h)
+p5 = (a + b)*(f + g)
+p6 = 0
+p7 = 0
+
+A'B' equals C'? False
+Strassen reconstruction equals A'B'? True
+================================================================================
+Permutation 12
+C' =
+[ a*f + b*h, c*f + d*h ]
+[ c*e + d*g, a*e + b*g ]
+
+Mode: BA
+B' =
+[[f, h], [e, g]]
+A' =
+[[a, a], [b, b]]
+
+B'A' =
+[ a*f + b*h, a*f + b*h ]
+[ a*e + b*g, a*e + b*g ]
+
+p terms:
+p1 = f*(a - b)
+p2 = b*(f + h)
+p3 = a*(e + g)
+p4 = -g*(a - b)
+p5 = (a + b)*(f + g)
+p6 = -2*b*(g - h)
+p7 = -2*a*(e - f)
+
+B'A' equals C'? False
+Strassen reconstruction equals B'A'? True
+================================================================================
+Permutation 13
+C' =
+[ c*e + d*g, a*e + b*g ]
+[ a*f + b*h, c*f + d*h ]
+
+Mode: AB
+A' =
+[[c, d], [c, d]]
+B' =
+[[e, f], [g, h]]
+
+A'B' =
+[ c*e + d*g, c*f + d*h ]
+[ c*e + d*g, c*f + d*h ]
+
+p terms:
+p1 = c*(f - h)
+p2 = h*(c + d)
+p3 = e*(c + d)
+p4 = -d*(e - g)
+p5 = (c + d)*(e + h)
+p6 = 0
+p7 = 0
+
+A'B' equals C'? False
+Strassen reconstruction equals A'B'? True
+================================================================================
+Permutation 13
+C' =
+[ c*e + d*g, a*e + b*g ]
+[ a*f + b*h, c*f + d*h ]
+
+Mode: BA
+B' =
+[[e, g], [f, h]]
+A' =
+[[c, c], [d, d]]
+
+B'A' =
+[ c*e + d*g, c*e + d*g ]
+[ c*f + d*h, c*f + d*h ]
+
+p terms:
+p1 = e*(c - d)
+p2 = d*(e + g)
+p3 = c*(f + h)
+p4 = -h*(c - d)
+p5 = (c + d)*(e + h)
+p6 = 2*d*(g - h)
+p7 = 2*c*(e - f)
+
+B'A' equals C'? False
+Strassen reconstruction equals B'A'? True
+================================================================================
+Permutation 14
+C' =
+[ c*e + d*g, a*e + b*g ]
+[ c*f + d*h, a*f + b*h ]
+
+Mode: AB
+A' =
+[[c, d], [a, b]]
+B' =
+[[e, f], [g, h]]
+
+A'B' =
+[ c*e + d*g, c*f + d*h ]
+[ a*e + b*g, a*f + b*h ]
+
+p terms:
+p1 = c*(f - h)
+p2 = h*(c + d)
+p3 = e*(a + b)
+p4 = -b*(e - g)
+p5 = (b + c)*(e + h)
+p6 = -(b - d)*(g + h)
+p7 = -(a - c)*(e + f)
+
+A'B' equals C'? False
+Strassen reconstruction equals A'B'? True
+================================================================================
+Permutation 14
+C' =
+[ c*e + d*g, a*e + b*g ]
+[ c*f + d*h, a*f + b*h ]
+
+Mode: BA
+B' =
+[[e, g], [f, h]]
+A' =
+[[c, a], [d, b]]
+
+B'A' =
+[ c*e + d*g, a*e + b*g ]
+[ c*f + d*h, a*f + b*h ]
+
+p terms:
+p1 = e*(a - b)
+p2 = b*(e + g)
+p3 = c*(f + h)
+p4 = -h*(c - d)
+p5 = (b + c)*(e + h)
+p6 = (b + d)*(g - h)
+p7 = (a + c)*(e - f)
+
+B'A' equals C'? True
+Strassen reconstruction equals B'A'? True
+================================================================================
+Permutation 15
+C' =
+[ c*e + d*g, a*f + b*h ]
+[ a*e + b*g, c*f + d*h ]
+
+Mode: AB
+A' =
+[[c, d], [c, d]]
+B' =
+[[e, f], [g, h]]
+
+A'B' =
+[ c*e + d*g, c*f + d*h ]
+[ c*e + d*g, c*f + d*h ]
+
+p terms:
+p1 = c*(f - h)
+p2 = h*(c + d)
+p3 = e*(c + d)
+p4 = -d*(e - g)
+p5 = (c + d)*(e + h)
+p6 = 0
+p7 = 0
+
+A'B' equals C'? False
+Strassen reconstruction equals A'B'? True
+================================================================================
+Permutation 15
+C' =
+[ c*e + d*g, a*f + b*h ]
+[ a*e + b*g, c*f + d*h ]
+
+Mode: BA
+B' =
+[[e, g], [f, h]]
+A' =
+[[c, c], [d, d]]
+
+B'A' =
+[ c*e + d*g, c*e + d*g ]
+[ c*f + d*h, c*f + d*h ]
+
+p terms:
+p1 = e*(c - d)
+p2 = d*(e + g)
+p3 = c*(f + h)
+p4 = -h*(c - d)
+p5 = (c + d)*(e + h)
+p6 = 2*d*(g - h)
+p7 = 2*c*(e - f)
+
+B'A' equals C'? False
+Strassen reconstruction equals B'A'? True
+================================================================================
+Permutation 16
+C' =
+[ c*e + d*g, a*f + b*h ]
+[ c*f + d*h, a*e + b*g ]
+
+Mode: AB
+A' =
+[[c, d], [a, b]]
+B' =
+[[e, e], [g, g]]
+
+A'B' =
+[ c*e + d*g, c*e + d*g ]
+[ a*e + b*g, a*e + b*g ]
+
+p terms:
+p1 = c*(e - g)
+p2 = g*(c + d)
+p3 = e*(a + b)
+p4 = -b*(e - g)
+p5 = (b + c)*(e + g)
+p6 = -2*g*(b - d)
+p7 = -2*e*(a - c)
+
+A'B' equals C'? False
+Strassen reconstruction equals A'B'? True
+================================================================================
+Permutation 16
+C' =
+[ c*e + d*g, a*f + b*h ]
+[ c*f + d*h, a*e + b*g ]
+
+Mode: BA
+B' =
+[[e, g], [e, g]]
+A' =
+[[c, a], [d, b]]
+
+B'A' =
+[ c*e + d*g, a*e + b*g ]
+[ c*e + d*g, a*e + b*g ]
+
+p terms:
+p1 = e*(a - b)
+p2 = b*(e + g)
+p3 = c*(e + g)
+p4 = -g*(c - d)
+p5 = (b + c)*(e + g)
+p6 = 0
+p7 = 0
+
+B'A' equals C'? False
+Strassen reconstruction equals B'A'? True
+================================================================================
+Permutation 17
+C' =
+[ c*e + d*g, c*f + d*h ]
+[ a*e + b*g, a*f + b*h ]
+
+Mode: AB
+A' =
+[[c, d], [a, b]]
+B' =
+[[e, f], [g, h]]
+
+A'B' =
+[ c*e + d*g, c*f + d*h ]
+[ a*e + b*g, a*f + b*h ]
+
+p terms:
+p1 = c*(f - h)
+p2 = h*(c + d)
+p3 = e*(a + b)
+p4 = -b*(e - g)
+p5 = (b + c)*(e + h)
+p6 = -(b - d)*(g + h)
+p7 = -(a - c)*(e + f)
+
+A'B' equals C'? True
+Strassen reconstruction equals A'B'? True
+================================================================================
+Permutation 17
+C' =
+[ c*e + d*g, c*f + d*h ]
+[ a*e + b*g, a*f + b*h ]
+
+Mode: BA
+B' =
+[[e, g], [f, h]]
+A' =
+[[c, a], [d, b]]
+
+B'A' =
+[ c*e + d*g, a*e + b*g ]
+[ c*f + d*h, a*f + b*h ]
+
+p terms:
+p1 = e*(a - b)
+p2 = b*(e + g)
+p3 = c*(f + h)
+p4 = -h*(c - d)
+p5 = (b + c)*(e + h)
+p6 = (b + d)*(g - h)
+p7 = (a + c)*(e - f)
+
+B'A' equals C'? False
+Strassen reconstruction equals B'A'? True
+================================================================================
+Permutation 18
+C' =
+[ c*e + d*g, c*f + d*h ]
+[ a*f + b*h, a*e + b*g ]
+
+Mode: AB
+A' =
+[[c, d], [a, b]]
+B' =
+[[e, e], [g, g]]
+
+A'B' =
+[ c*e + d*g, c*e + d*g ]
+[ a*e + b*g, a*e + b*g ]
+
+p terms:
+p1 = c*(e - g)
+p2 = g*(c + d)
+p3 = e*(a + b)
+p4 = -b*(e - g)
+p5 = (b + c)*(e + g)
+p6 = -2*g*(b - d)
+p7 = -2*e*(a - c)
+
+A'B' equals C'? False
+Strassen reconstruction equals A'B'? True
+================================================================================
+Permutation 18
+C' =
+[ c*e + d*g, c*f + d*h ]
+[ a*f + b*h, a*e + b*g ]
+
+Mode: BA
+B' =
+[[e, g], [e, g]]
+A' =
+[[c, a], [d, b]]
+
+B'A' =
+[ c*e + d*g, a*e + b*g ]
+[ c*e + d*g, a*e + b*g ]
+
+p terms:
+p1 = e*(a - b)
+p2 = b*(e + g)
+p3 = c*(e + g)
+p4 = -g*(c - d)
+p5 = (b + c)*(e + g)
+p6 = 0
+p7 = 0
+
+B'A' equals C'? False
+Strassen reconstruction equals B'A'? True
+================================================================================
+Permutation 19
+C' =
+[ c*f + d*h, a*e + b*g ]
+[ a*f + b*h, c*e + d*g ]
+
+Mode: AB
+A' =
+[[c, d], [c, d]]
+B' =
+[[f, e], [h, g]]
+
+A'B' =
+[ c*f + d*h, c*e + d*g ]
+[ c*f + d*h, c*e + d*g ]
+
+p terms:
+p1 = c*(e - g)
+p2 = g*(c + d)
+p3 = f*(c + d)
+p4 = -d*(f - h)
+p5 = (c + d)*(f + g)
+p6 = 0
+p7 = 0
+
+A'B' equals C'? False
+Strassen reconstruction equals A'B'? True
+================================================================================
+Permutation 19
+C' =
+[ c*f + d*h, a*e + b*g ]
+[ a*f + b*h, c*e + d*g ]
+
+Mode: BA
+B' =
+[[f, h], [e, g]]
+A' =
+[[c, c], [d, d]]
+
+B'A' =
+[ c*f + d*h, c*f + d*h ]
+[ c*e + d*g, c*e + d*g ]
+
+p terms:
+p1 = f*(c - d)
+p2 = d*(f + h)
+p3 = c*(e + g)
+p4 = -g*(c - d)
+p5 = (c + d)*(f + g)
+p6 = -2*d*(g - h)
+p7 = -2*c*(e - f)
+
+B'A' equals C'? False
+Strassen reconstruction equals B'A'? True
+================================================================================
+Permutation 20
+C' =
+[ c*f + d*h, a*e + b*g ]
+[ c*e + d*g, a*f + b*h ]
+
+Mode: AB
+A' =
+[[c, d], [a, b]]
+B' =
+[[f, f], [h, h]]
+
+A'B' =
+[ c*f + d*h, c*f + d*h ]
+[ a*f + b*h, a*f + b*h ]
+
+p terms:
+p1 = c*(f - h)
+p2 = h*(c + d)
+p3 = f*(a + b)
+p4 = -b*(f - h)
+p5 = (b + c)*(f + h)
+p6 = -2*h*(b - d)
+p7 = -2*f*(a - c)
+
+A'B' equals C'? False
+Strassen reconstruction equals A'B'? True
+================================================================================
+Permutation 20
+C' =
+[ c*f + d*h, a*e + b*g ]
+[ c*e + d*g, a*f + b*h ]
+
+Mode: BA
+B' =
+[[f, h], [f, h]]
+A' =
+[[c, a], [d, b]]
+
+B'A' =
+[ c*f + d*h, a*f + b*h ]
+[ c*f + d*h, a*f + b*h ]
+
+p terms:
+p1 = f*(a - b)
+p2 = b*(f + h)
+p3 = c*(f + h)
+p4 = -h*(c - d)
+p5 = (b + c)*(f + h)
+p6 = 0
+p7 = 0
+
+B'A' equals C'? False
+Strassen reconstruction equals B'A'? True
+================================================================================
+Permutation 21
+C' =
+[ c*f + d*h, a*f + b*h ]
+[ a*e + b*g, c*e + d*g ]
+
+Mode: AB
+A' =
+[[c, d], [c, d]]
+B' =
+[[f, e], [h, g]]
+
+A'B' =
+[ c*f + d*h, c*e + d*g ]
+[ c*f + d*h, c*e + d*g ]
+
+p terms:
+p1 = c*(e - g)
+p2 = g*(c + d)
+p3 = f*(c + d)
+p4 = -d*(f - h)
+p5 = (c + d)*(f + g)
+p6 = 0
+p7 = 0
+
+A'B' equals C'? False
+Strassen reconstruction equals A'B'? True
+================================================================================
+Permutation 21
+C' =
+[ c*f + d*h, a*f + b*h ]
+[ a*e + b*g, c*e + d*g ]
+
+Mode: BA
+B' =
+[[f, h], [e, g]]
+A' =
+[[c, c], [d, d]]
+
+B'A' =
+[ c*f + d*h, c*f + d*h ]
+[ c*e + d*g, c*e + d*g ]
+
+p terms:
+p1 = f*(c - d)
+p2 = d*(f + h)
+p3 = c*(e + g)
+p4 = -g*(c - d)
+p5 = (c + d)*(f + g)
+p6 = -2*d*(g - h)
+p7 = -2*c*(e - f)
+
+B'A' equals C'? False
+Strassen reconstruction equals B'A'? True
+================================================================================
+Permutation 22
+C' =
+[ c*f + d*h, a*f + b*h ]
+[ c*e + d*g, a*e + b*g ]
+
+Mode: AB
+A' =
+[[c, d], [a, b]]
+B' =
+[[f, e], [h, g]]
+
+A'B' =
+[ c*f + d*h, c*e + d*g ]
+[ a*f + b*h, a*e + b*g ]
+
+p terms:
+p1 = c*(e - g)
+p2 = g*(c + d)
+p3 = f*(a + b)
+p4 = -b*(f - h)
+p5 = (b + c)*(f + g)
+p6 = -(b - d)*(g + h)
+p7 = -(a - c)*(e + f)
+
+A'B' equals C'? False
+Strassen reconstruction equals A'B'? True
+================================================================================
+Permutation 22
+C' =
+[ c*f + d*h, a*f + b*h ]
+[ c*e + d*g, a*e + b*g ]
+
+Mode: BA
+B' =
+[[f, h], [e, g]]
+A' =
+[[c, a], [d, b]]
+
+B'A' =
+[ c*f + d*h, a*f + b*h ]
+[ c*e + d*g, a*e + b*g ]
+
+p terms:
+p1 = f*(a - b)
+p2 = b*(f + h)
+p3 = c*(e + g)
+p4 = -g*(c - d)
+p5 = (b + c)*(f + g)
+p6 = -(b + d)*(g - h)
+p7 = -(a + c)*(e - f)
+
+B'A' equals C'? True
+Strassen reconstruction equals B'A'? True
+================================================================================
+Permutation 23
+C' =
+[ c*f + d*h, c*e + d*g ]
+[ a*e + b*g, a*f + b*h ]
+
+Mode: AB
+A' =
+[[c, d], [a, b]]
+B' =
+[[f, f], [h, h]]
+
+A'B' =
+[ c*f + d*h, c*f + d*h ]
+[ a*f + b*h, a*f + b*h ]
+
+p terms:
+p1 = c*(f - h)
+p2 = h*(c + d)
+p3 = f*(a + b)
+p4 = -b*(f - h)
+p5 = (b + c)*(f + h)
+p6 = -2*h*(b - d)
+p7 = -2*f*(a - c)
+
+A'B' equals C'? False
+Strassen reconstruction equals A'B'? True
+================================================================================
+Permutation 23
+C' =
+[ c*f + d*h, c*e + d*g ]
+[ a*e + b*g, a*f + b*h ]
+
+Mode: BA
+B' =
+[[f, h], [f, h]]
+A' =
+[[c, a], [d, b]]
+
+B'A' =
+[ c*f + d*h, a*f + b*h ]
+[ c*f + d*h, a*f + b*h ]
+
+p terms:
+p1 = f*(a - b)
+p2 = b*(f + h)
+p3 = c*(f + h)
+p4 = -h*(c - d)
+p5 = (b + c)*(f + h)
+p6 = 0
+p7 = 0
+
+B'A' equals C'? False
+Strassen reconstruction equals B'A'? True
+================================================================================
+Permutation 24
+C' =
+[ c*f + d*h, c*e + d*g ]
+[ a*f + b*h, a*e + b*g ]
+
+Mode: AB
+A' =
+[[c, d], [a, b]]
+B' =
+[[f, e], [h, g]]
+
+A'B' =
+[ c*f + d*h, c*e + d*g ]
+[ a*f + b*h, a*e + b*g ]
+
+p terms:
+p1 = c*(e - g)
+p2 = g*(c + d)
+p3 = f*(a + b)
+p4 = -b*(f - h)
+p5 = (b + c)*(f + g)
+p6 = -(b - d)*(g + h)
+p7 = -(a - c)*(e + f)
+
+A'B' equals C'? True
+Strassen reconstruction equals A'B'? True
+================================================================================
+Permutation 24
+C' =
+[ c*f + d*h, c*e + d*g ]
+[ a*f + b*h, a*e + b*g ]
+
+Mode: BA
+B' =
+[[f, h], [e, g]]
+A' =
+[[c, a], [d, b]]
+
+B'A' =
+[ c*f + d*h, a*f + b*h ]
+[ c*e + d*g, a*e + b*g ]
+
+p terms:
+p1 = f*(a - b)
+p2 = b*(f + h)
+p3 = c*(e + g)
+p4 = -g*(c - d)
+p5 = (b + c)*(f + g)
+p6 = -(b + d)*(g - h)
+p7 = -(a + c)*(e - f)
+
+B'A' equals C'? False
+Strassen reconstruction equals B'A'? True
+
+Summary
+Total permutations checked: 48
+Valid inference/mode pairs where product equals C': 8
+
+Valid variations
+--------------------------------------------------------------------------------
+Variation 1
+Permutation 1
+Mode: AB
+A' =
+[[a, b], [c, d]]
+B' =
+[[e, f], [g, h]]
+
+Products
+p1 = a*(f - h)
+p2 = h*(a + b)
+p3 = e*(c + d)
+p4 = -d*(e - g)
+p5 = (a + d)*(e + h)
+p6 = (b - d)*(g + h)
+p7 = (a - c)*(e + f)
+
+Reconstruction matrix
+[ -p2 + p4 + p5 + p6, p1 + p2 ]
+[ p3 + p4, p1 - p3 + p5 - p7 ]
+
+Expanded result
+[ a*e + b*g, a*f + b*h ]
+[ c*e + d*g, c*f + d*h ]
+Correct? True
+--------------------------------------------------------------------------------
+Variation 2
+Permutation 3
+Mode: BA
+B' =
+[[e, g], [f, h]]
+A' =
+[[a, c], [b, d]]
+
+Products
+p1 = e*(c - d)
+p2 = d*(e + g)
+p3 = a*(f + h)
+p4 = -h*(a - b)
+p5 = (a + d)*(e + h)
+p6 = (b + d)*(g - h)
+p7 = (a + c)*(e - f)
+
+Reconstruction matrix
+[ -p2 + p4 + p5 + p6, p3 + p4 ]
+[ p1 + p2, p1 - p3 + p5 - p7 ]
+
+Expanded result
+[ a*e + b*g, a*f + b*h ]
+[ c*e + d*g, c*f + d*h ]
+Correct? True
+--------------------------------------------------------------------------------
+Variation 3
+Permutation 8
+Mode: AB
+A' =
+[[a, b], [c, d]]
+B' =
+[[f, e], [h, g]]
+
+Products
+p1 = a*(e - g)
+p2 = g*(a + b)
+p3 = f*(c + d)
+p4 = -d*(f - h)
+p5 = (a + d)*(f + g)
+p6 = (b - d)*(g + h)
+p7 = (a - c)*(e + f)
+
+Reconstruction matrix
+[ p1 + p2, -p2 + p4 + p5 + p6 ]
+[ p1 - p3 + p5 - p7, p3 + p4 ]
+
+Expanded result
+[ a*e + b*g, a*f + b*h ]
+[ c*e + d*g, c*f + d*h ]
+Correct? True
+--------------------------------------------------------------------------------
+Variation 4
+Permutation 11
+Mode: BA
+B' =
+[[f, h], [e, g]]
+A' =
+[[a, c], [b, d]]
+
+Products
+p1 = f*(c - d)
+p2 = d*(f + h)
+p3 = a*(e + g)
+p4 = -g*(a - b)
+p5 = (a + d)*(f + g)
+p6 = -(b + d)*(g - h)
+p7 = -(a + c)*(e - f)
+
+Reconstruction matrix
+[ p3 + p4, -p2 + p4 + p5 + p6 ]
+[ p1 - p3 + p5 - p7, p1 + p2 ]
+
+Expanded result
+[ a*e + b*g, a*f + b*h ]
+[ c*e + d*g, c*f + d*h ]
+Correct? True
+--------------------------------------------------------------------------------
+Variation 5
+Permutation 14
+Mode: BA
+B' =
+[[e, g], [f, h]]
+A' =
+[[c, a], [d, b]]
+
+Products
+p1 = e*(a - b)
+p2 = b*(e + g)
+p3 = c*(f + h)
+p4 = -h*(c - d)
+p5 = (b + c)*(e + h)
+p6 = (b + d)*(g - h)
+p7 = (a + c)*(e - f)
+
+Reconstruction matrix
+[ p1 + p2, p1 - p3 + p5 - p7 ]
+[ -p2 + p4 + p5 + p6, p3 + p4 ]
+
+Expanded result
+[ a*e + b*g, a*f + b*h ]
+[ c*e + d*g, c*f + d*h ]
+Correct? True
+--------------------------------------------------------------------------------
+Variation 6
+Permutation 17
+Mode: AB
+A' =
+[[c, d], [a, b]]
+B' =
+[[e, f], [g, h]]
+
+Products
+p1 = c*(f - h)
+p2 = h*(c + d)
+p3 = e*(a + b)
+p4 = -b*(e - g)
+p5 = (b + c)*(e + h)
+p6 = -(b - d)*(g + h)
+p7 = -(a - c)*(e + f)
+
+Reconstruction matrix
+[ p3 + p4, p1 - p3 + p5 - p7 ]
+[ -p2 + p4 + p5 + p6, p1 + p2 ]
+
+Expanded result
+[ a*e + b*g, a*f + b*h ]
+[ c*e + d*g, c*f + d*h ]
+Correct? True
+--------------------------------------------------------------------------------
+Variation 7
+Permutation 22
+Mode: BA
+B' =
+[[f, h], [e, g]]
+A' =
+[[c, a], [d, b]]
+
+Products
+p1 = f*(a - b)
+p2 = b*(f + h)
+p3 = c*(e + g)
+p4 = -g*(c - d)
+p5 = (b + c)*(f + g)
+p6 = -(b + d)*(g - h)
+p7 = -(a + c)*(e - f)
+
+Reconstruction matrix
+[ p1 - p3 + p5 - p7, p1 + p2 ]
+[ p3 + p4, -p2 + p4 + p5 + p6 ]
+
+Expanded result
+[ a*e + b*g, a*f + b*h ]
+[ c*e + d*g, c*f + d*h ]
+Correct? True
+--------------------------------------------------------------------------------
+Variation 8
+Permutation 24
+Mode: AB
+A' =
+[[c, d], [a, b]]
+B' =
+[[f, e], [h, g]]
+
+Products
+p1 = c*(e - g)
+p2 = g*(c + d)
+p3 = f*(a + b)
+p4 = -b*(f - h)
+p5 = (b + c)*(f + g)
+p6 = -(b - d)*(g + h)
+p7 = -(a - c)*(e + f)
+
+Reconstruction matrix
+[ p1 - p3 + p5 - p7, p3 + p4 ]
+[ p1 + p2, -p2 + p4 + p5 + p6 ]
+
+Expanded result
+[ a*e + b*g, a*f + b*h ]
+[ c*e + d*g, c*f + d*h ]
+Correct? True
+
+Valid permutation numbers: [(1, 'AB'), (3, 'BA'), (8, 'AB'), (11, 'BA'), (14, 'BA'), (17, 'AB'), (22, 'BA'), (24, 'AB')]
+
+################################################################################
+Algorithm: Strassen-Winograd
+################################################################################
+
+Summary
+Total permutations checked: 48
+Valid inference/mode pairs where product equals C': 8
+
+Valid variations
+--------------------------------------------------------------------------------
+Variation 1
+Permutation 1
+Mode: AB
+A' =
+[[a, b], [c, d]]
+B' =
+[[e, f], [g, h]]
+
+Products
+p1 = -(a - c)*(f - h)
+p2 = a*e
+p3 = b*g
+p4 = -(a - c - d)*(e - f + h)
+p5 = -(c + d)*(e - f)
+p6 = h*(a + b - c - d)
+p7 = d*(e - f - g + h)
+
+Reconstruction matrix
+[ p2 + p3, p2 + p4 + p5 + p6 ]
+[ p1 + p2 + p4 - p7, p1 + p2 + p4 + p5 ]
+
+Expanded result
+[ a*e + b*g, a*f + b*h ]
+[ c*e + d*g, c*f + d*h ]
+Correct? True
+--------------------------------------------------------------------------------
+Variation 2
+Permutation 3
+Mode: BA
+B' =
+[[e, g], [f, h]]
+A' =
+[[a, c], [b, d]]
+
+Products
+p1 = -(c - d)*(e - f)
+p2 = a*e
+p3 = b*g
+p4 = -(a - c + d)*(e - f - h)
+p5 = -(a - c)*(f + h)
+p6 = d*(e - f + g - h)
+p7 = h*(a - b - c + d)
+
+Reconstruction matrix
+[ p2 + p3, p1 + p2 + p4 - p7 ]
+[ p2 + p4 + p5 + p6, p1 + p2 + p4 + p5 ]
+
+Expanded result
+[ a*e + b*g, a*f + b*h ]
+[ c*e + d*g, c*f + d*h ]
+Correct? True
+--------------------------------------------------------------------------------
+Variation 3
+Permutation 8
+Mode: AB
+A' =
+[[a, b], [c, d]]
+B' =
+[[f, e], [h, g]]
+
+Products
+p1 = -(a - c)*(e - g)
+p2 = a*f
+p3 = b*h
+p4 = (a - c - d)*(e - f - g)
+p5 = (c + d)*(e - f)
+p6 = g*(a + b - c - d)
+p7 = -d*(e - f - g + h)
+
+Reconstruction matrix
+[ p2 + p4 + p5 + p6, p2 + p3 ]
+[ p1 + p2 + p4 + p5, p1 + p2 + p4 - p7 ]
+
+Expanded result
+[ a*e + b*g, a*f + b*h ]
+[ c*e + d*g, c*f + d*h ]
+Correct? True
+--------------------------------------------------------------------------------
+Variation 4
+Permutation 11
+Mode: BA
+B' =
+[[f, h], [e, g]]
+A' =
+[[a, c], [b, d]]
+
+Products
+p1 = (c - d)*(e - f)
+p2 = a*f
+p3 = b*h
+p4 = (a - c + d)*(e - f + g)
+p5 = -(a - c)*(e + g)
+p6 = -d*(e - f + g - h)
+p7 = g*(a - b - c + d)
+
+Reconstruction matrix
+[ p1 + p2 + p4 - p7, p2 + p3 ]
+[ p1 + p2 + p4 + p5, p2 + p4 + p5 + p6 ]
+
+Expanded result
+[ a*e + b*g, a*f + b*h ]
+[ c*e + d*g, c*f + d*h ]
+Correct? True
+--------------------------------------------------------------------------------
+Variation 5
+Permutation 14
+Mode: BA
+B' =
+[[e, g], [f, h]]
+A' =
+[[c, a], [d, b]]
+
+Products
+p1 = -(a - b)*(e - f)
+p2 = c*e
+p3 = d*g
+p4 = (a - b - c)*(e - f - h)
+p5 = (a - c)*(f + h)
+p6 = b*(e - f + g - h)
+p7 = -h*(a - b - c + d)
+
+Reconstruction matrix
+[ p2 + p4 + p5 + p6, p1 + p2 + p4 + p5 ]
+[ p2 + p3, p1 + p2 + p4 - p7 ]
+
+Expanded result
+[ a*e + b*g, a*f + b*h ]
+[ c*e + d*g, c*f + d*h ]
+Correct? True
+--------------------------------------------------------------------------------
+Variation 6
+Permutation 17
+Mode: AB
+A' =
+[[c, d], [a, b]]
+B' =
+[[e, f], [g, h]]
+
+Products
+p1 = (a - c)*(f - h)
+p2 = c*e
+p3 = d*g
+p4 = (a + b - c)*(e - f + h)
+p5 = -(a + b)*(e - f)
+p6 = -h*(a + b - c - d)
+p7 = b*(e - f - g + h)
+
+Reconstruction matrix
+[ p1 + p2 + p4 - p7, p1 + p2 + p4 + p5 ]
+[ p2 + p3, p2 + p4 + p5 + p6 ]
+
+Expanded result
+[ a*e + b*g, a*f + b*h ]
+[ c*e + d*g, c*f + d*h ]
+Correct? True
+--------------------------------------------------------------------------------
+Variation 7
+Permutation 22
+Mode: BA
+B' =
+[[f, h], [e, g]]
+A' =
+[[c, a], [d, b]]
+
+Products
+p1 = (a - b)*(e - f)
+p2 = c*f
+p3 = d*h
+p4 = -(a - b - c)*(e - f + g)
+p5 = (a - c)*(e + g)
+p6 = -b*(e - f + g - h)
+p7 = -g*(a - b - c + d)
+
+Reconstruction matrix
+[ p1 + p2 + p4 + p5, p2 + p4 + p5 + p6 ]
+[ p1 + p2 + p4 - p7, p2 + p3 ]
+
+Expanded result
+[ a*e + b*g, a*f + b*h ]
+[ c*e + d*g, c*f + d*h ]
+Correct? True
+--------------------------------------------------------------------------------
+Variation 8
+Permutation 24
+Mode: AB
+A' =
+[[c, d], [a, b]]
+B' =
+[[f, e], [h, g]]
+
+Products
+p1 = (a - c)*(e - g)
+p2 = c*f
+p3 = d*h
+p4 = -(a + b - c)*(e - f - g)
+p5 = (a + b)*(e - f)
+p6 = -g*(a + b - c - d)
+p7 = -b*(e - f - g + h)
+
+Reconstruction matrix
+[ p1 + p2 + p4 + p5, p1 + p2 + p4 - p7 ]
+[ p2 + p4 + p5 + p6, p2 + p3 ]
+
+Expanded result
+[ a*e + b*g, a*f + b*h ]
+[ c*e + d*g, c*f + d*h ]
+Correct? True
+
+Valid permutation numbers: [(1, 'AB'), (3, 'BA'), (8, 'AB'), (11, 'BA'), (14, 'BA'), (17, 'AB'), (22, 'BA'), (24, 'AB')]

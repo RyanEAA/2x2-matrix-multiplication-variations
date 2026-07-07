@@ -13,27 +13,18 @@ TARGETS = [
 
 TARGET_SET = {sp.expand(x) for x in TARGETS}
 
-ENTRY_INFO = {
-    sp.expand(a * e + b * g): {
-        "name": "ae+bg",
-        "A_row": [a, b],
-        "B_col": [e, g],
-    },
-    sp.expand(a * f + b * h): {
-        "name": "af+bh",
-        "A_row": [a, b],
-        "B_col": [f, h],
-    },
-    sp.expand(c * e + d * g): {
-        "name": "ce+dg",
-        "A_row": [c, d],
-        "B_col": [e, g],
-    },
-    sp.expand(c * f + d * h): {
-        "name": "cf+dh",
-        "A_row": [c, d],
-        "B_col": [f, h],
-    },
+ENTRY_INFO_AB = {
+    sp.expand(a * e + b * g): {"left_row": [a, b], "right_col": [e, g]},
+    sp.expand(a * f + b * h): {"left_row": [a, b], "right_col": [f, h]},
+    sp.expand(c * e + d * g): {"left_row": [c, d], "right_col": [e, g]},
+    sp.expand(c * f + d * h): {"left_row": [c, d], "right_col": [f, h]},
+}
+
+ENTRY_INFO_BA = {
+    sp.expand(a * e + b * g): {"left_row": [e, g], "right_col": [a, b]},
+    sp.expand(a * f + b * h): {"left_row": [f, h], "right_col": [a, b]},
+    sp.expand(c * e + d * g): {"left_row": [e, g], "right_col": [c, d]},
+    sp.expand(c * f + d * h): {"left_row": [f, h], "right_col": [c, d]},
 }
 
 def make_symbolic_products(prefix="p"):
@@ -73,83 +64,94 @@ def matrix_product_entries(A, B):
     ]
 
 
-def infer_A_B_from_diagonal(target_perm):
+def infer_left_right_from_diagonal(target_perm, entry_info):
     c11 = sp.expand(target_perm[0])
     c22 = sp.expand(target_perm[3])
 
-    row1 = ENTRY_INFO[c11]["A_row"]
-    col1 = ENTRY_INFO[c11]["B_col"]
+    row1 = entry_info[c11]["left_row"]
+    col1 = entry_info[c11]["right_col"]
 
-    row2 = ENTRY_INFO[c22]["A_row"]
-    col2 = ENTRY_INFO[c22]["B_col"]
+    row2 = entry_info[c22]["left_row"]
+    col2 = entry_info[c22]["right_col"]
 
-    A_prime = [
+    left_matrix = [
         row1,
         row2,
     ]
 
-    B_prime = [
+    right_matrix = [
         [col1[0], col2[0]],
         [col1[1], col2[1]],
     ]
 
-    return A_prime, B_prime
+    return left_matrix, right_matrix
 
 
 def run_permutation_search(algorithm_name, algorithm_module, verbose=False):
     results = []
-
     for idx, target_perm in enumerate(permutations(TARGETS), start=1):
         target_perm = tuple(sp.expand(x) for x in target_perm)
 
-        A_prime, B_prime = infer_A_B_from_diagonal(target_perm)
+        inference_modes = [
+            ("AB", "A'", "B'", ENTRY_INFO_AB),
+            ("BA", "B'", "A'", ENTRY_INFO_BA),
+        ]
 
-        product_entries = matrix_product_entries(A_prime, B_prime)
-        product_matches_C_prime = product_entries == list(target_perm)
-
-        p_terms = algorithm_module.products(A_prime, B_prime, prefix="p")
-        reconstructed = algorithm_module.reconstruct(p_terms, prefix="p")
-
-        symbolic_p_terms = make_symbolic_products(prefix="p")
-        symbolic_reconstructed_C_prime = algorithm_module.reconstruct(
-            symbolic_p_terms,
-            prefix="p",
-        )
-
-        reconstruction_valid = reconstructed == product_entries
-
-        if product_matches_C_prime:
-            symbolic_reconstruction = reconstruct_original_C_from_valid_permutation(
+        for mode_name, left_label, right_label, entry_info in inference_modes:
+            left_matrix, right_matrix = infer_left_right_from_diagonal(
                 target_perm,
-                symbolic_reconstructed_C_prime,
+                entry_info,
             )
 
-            expanded_reconstruction = reconstruct_original_C_from_valid_permutation(
-                target_perm,
-                reconstructed,
+            product_entries = matrix_product_entries(left_matrix, right_matrix)
+            product_matches_C_prime = product_entries == list(target_perm)
+
+            p_terms = algorithm_module.products(left_matrix, right_matrix, prefix="p")
+            reconstructed = algorithm_module.reconstruct(p_terms, prefix="p")
+
+            reconstruction_valid = reconstructed == product_entries
+
+            symbolic_p_terms = make_symbolic_products(prefix="p")
+            symbolic_reconstructed_C_prime = algorithm_module.reconstruct(
+                symbolic_p_terms,
+                prefix="p",
             )
 
-            expanded_reconstruction_valid = expanded_reconstruction == TARGETS
-        else:
-            symbolic_reconstruction = None
-            expanded_reconstruction = None
-            expanded_reconstruction_valid = False
+            if product_matches_C_prime:
+                symbolic_reconstruction = reconstruct_original_C_from_valid_permutation(
+                    target_perm,
+                    symbolic_reconstructed_C_prime,
+                )
 
-        results.append({
-            "permutation_number": idx,
-            "C_prime": target_perm,
-            "A_prime": A_prime,
-            "B_prime": B_prime,
-            "A_prime_B_prime": product_entries,
-            "product_matches_C_prime": product_matches_C_prime,
-            "p_terms": p_terms,
-            "reconstruction_valid": reconstruction_valid,
-            "symbolic_reconstruction": symbolic_reconstruction,
-            "expanded_reconstruction": expanded_reconstruction,
-            "expanded_reconstruction_valid": expanded_reconstruction_valid,
-        })
+                expanded_reconstruction = reconstruct_original_C_from_valid_permutation(
+                    target_perm,
+                    reconstructed,
+                )
 
-    print_results(algorithm_name, results)
+                expanded_reconstruction_valid = expanded_reconstruction == TARGETS
+            else:
+                symbolic_reconstruction = None
+                expanded_reconstruction = None
+                expanded_reconstruction_valid = False
+
+            results.append({
+                "permutation_number": idx,
+                "mode": mode_name,
+                "left_label": left_label,
+                "right_label": right_label,
+                "C_prime": target_perm,
+                "left_matrix": left_matrix,
+                "right_matrix": right_matrix,
+                "product_entries": product_entries,
+                "product_matches_C_prime": product_matches_C_prime,
+                "p_terms": p_terms,
+                "reconstruction_valid": reconstruction_valid,
+                "symbolic_reconstruction": symbolic_reconstruction,
+                "expanded_reconstruction": expanded_reconstruction,
+                "expanded_reconstruction_valid": expanded_reconstruction_valid,
+            })
+
+    print_results(algorithm_name, results, verbose=verbose)
 
     return results
 
@@ -168,14 +170,16 @@ def print_results(algorithm_name, results, verbose=False):
             print(f"[ {C1}, {C2} ]")
             print(f"[ {C3}, {C4} ]")
 
-            print("\nA' =")
-            print(r["A_prime"])
+            print(f"\nMode: {r['mode']}")
 
-            print("B' =")
-            print(r["B_prime"])
+            print(f"{r['left_label']} =")
+            print(r["left_matrix"])
 
-            P1, P2, P3, P4 = r["A_prime_B_prime"]
-            print("\nA'B' =")
+            print(f"{r['right_label']} =")
+            print(r["right_matrix"])
+
+            P1, P2, P3, P4 = r["product_entries"]
+            print(f"\n{r['left_label']}{r['right_label']} =")
             print(f"[ {P1}, {P2} ]")
             print(f"[ {P3}, {P4} ]")
 
@@ -183,9 +187,9 @@ def print_results(algorithm_name, results, verbose=False):
             for name, expr in r["p_terms"].items():
                 print(f"{name} = {sp.factor(expr)}")
 
-            print(f"\nA'B' equals C'? {r['product_matches_C_prime']}")
+            print(f"\n{r['left_label']}{r['right_label']} equals C'? {r['product_matches_C_prime']}")
             print(
-                f"{algorithm_name} reconstruction equals A'B'? "
+                f"{algorithm_name} reconstruction equals {r['left_label']}{r['right_label']}? "
                 f"{r['reconstruction_valid']}"
             )
 
@@ -193,8 +197,7 @@ def print_results(algorithm_name, results, verbose=False):
 
     print("\nSummary")
     print(f"Total permutations checked: {len(results)}")
-    print(f"Permutations where inferred A'B' equals C': {valid_count}")
-
+    print(f"Valid inference/mode pairs where product equals C': {valid_count}")
     valid_perms = []
 
     print("\nValid variations")
@@ -203,17 +206,18 @@ def print_results(algorithm_name, results, verbose=False):
         if not r["product_matches_C_prime"]:
             continue
 
-        valid_perms.append(r["permutation_number"])
+        valid_perms.append((r["permutation_number"], r["mode"]))
 
         print("-" * 80)
         print(f"Variation {len(valid_perms)}")
         print(f"Permutation {r['permutation_number']}")
+        print(f"Mode: {r['mode']}")
 
-        print("A' =")
-        print(r["A_prime"])
+        print(f"{r['left_label']} =")
+        print(r["left_matrix"])
 
-        print("B' =")
-        print(r["B_prime"])
+        print(f"{r['right_label']} =")
+        print(r["right_matrix"])
 
         print("\nProducts")
         for name, expr in r["p_terms"].items():

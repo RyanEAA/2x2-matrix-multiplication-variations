@@ -1,9 +1,6 @@
 from pathlib import Path
 import sympy as sp
 
-def format_matrix(M):
-    return f"[ {M[0]}, {M[1]} ]\n[ {M[2]}, {M[3]} ]"
-
 
 def write_results_markdown(algorithm_name, results, output_path):
     output_path = Path(output_path)
@@ -14,17 +11,24 @@ def write_results_markdown(algorithm_name, results, output_path):
         if r["product_matches_C_prime"]
     ]
 
+    valid_pairs = [
+        (r["permutation_number"], r["mode"])
+        for r in valid_results
+    ]
+
     lines = []
 
     lines.append(f"# {algorithm_name} Permutation Summary\n")
-    lines.append(f"Total permutations checked: **{len(results)}**\n")
-    lines.append(f"Valid permutations: **{[r['permutation_number'] for r in valid_results]}**\n")
-    lines.append(f"Number of valid permutations: **{len(valid_results)}**\n")
+    lines.append(f"Total cases checked: **{len(results)}**\n")
+    lines.append("Each output permutation is checked in two modes: `AB` and `BA`.\n")
+    lines.append(f"Valid permutation/mode pairs: **{valid_pairs}**\n")
+    lines.append(f"Number of valid cases: **{len(valid_results)}**\n")
 
     for i, r in enumerate(valid_results, start=1):
         lines.append("---\n")
         lines.append(f"## Variation {i}\n")
         lines.append(f"Permutation: **{r['permutation_number']}**\n")
+        lines.append(f"Mode: **{r['mode']}**\n")
 
         C1, C2, C3, C4 = r["C_prime"]
         lines.append("### Target \\(C'\\)\n")
@@ -33,16 +37,23 @@ def write_results_markdown(algorithm_name, results, output_path):
         lines.append(f"[ {C3}, {C4} ]")
         lines.append("```\n")
 
-        lines.append("### Inferred \\(A'\\)\n")
+        lines.append(f"### Inferred \\({r['left_label']}\\)\n")
         lines.append("```text")
-        lines.append(f"[ {r['A_prime'][0][0]}, {r['A_prime'][0][1]} ]")
-        lines.append(f"[ {r['A_prime'][1][0]}, {r['A_prime'][1][1]} ]")
+        lines.append(f"[ {r['left_matrix'][0][0]}, {r['left_matrix'][0][1]} ]")
+        lines.append(f"[ {r['left_matrix'][1][0]}, {r['left_matrix'][1][1]} ]")
         lines.append("```\n")
 
-        lines.append("### Inferred \\(B'\\)\n")
+        lines.append(f"### Inferred \\({r['right_label']}\\)\n")
         lines.append("```text")
-        lines.append(f"[ {r['B_prime'][0][0]}, {r['B_prime'][0][1]} ]")
-        lines.append(f"[ {r['B_prime'][1][0]}, {r['B_prime'][1][1]} ]")
+        lines.append(f"[ {r['right_matrix'][0][0]}, {r['right_matrix'][0][1]} ]")
+        lines.append(f"[ {r['right_matrix'][1][0]}, {r['right_matrix'][1][1]} ]")
+        lines.append("```\n")
+
+        lines.append(f"### Product \\({r['left_label']}{r['right_label']}\\)\n")
+        P1, P2, P3, P4 = r["product_entries"]
+        lines.append("```text")
+        lines.append(f"[ {P1}, {P2} ]")
+        lines.append(f"[ {P3}, {P4} ]")
         lines.append("```\n")
 
         lines.append("### Products\n")
